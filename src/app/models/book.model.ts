@@ -62,10 +62,17 @@ bookSchema.pre('save', function (next) {
   next();
 });
 
-bookSchema.static('updateAvailability', async function (bookId: string, copies: number) {
-  const isAvailable = copies > 0;
-  return this.findByIdAndUpdate(bookId, { available: isAvailable }, { new: true });
+bookSchema.post('save', function () {
+  console.log(`Book document with ID ${this._id} saved.`);
 });
+
+bookSchema.statics.updateAvailability = async function (bookId: string) {
+  const book = await this.findById(bookId);
+  if (book) {
+    book.available = book.copies > 0;
+    await book.save();
+  }
+};
 
 
 export const Book = model<IBook>("Book", bookSchema);
