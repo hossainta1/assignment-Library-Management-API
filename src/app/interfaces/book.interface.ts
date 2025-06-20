@@ -6,7 +6,7 @@ export type Genre =
   | "BIOGRAPHY"
   | "FANTASY";
 
-export interface IBOOK {
+export interface IBook {
   title: string;
   author: string;
   genre: Genre;
