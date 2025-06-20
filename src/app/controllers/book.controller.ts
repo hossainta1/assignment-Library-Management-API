@@ -1,7 +1,7 @@
 import express, { Request, Response, Router } from "express";
 import { Book } from "../models/book.model";
 
-export const bookRoutes : Router = express.Router();
+export const bookRoutes: Router = express.Router();
 
 // Crate book
 
@@ -89,5 +89,23 @@ bookRoutes.get("/:bookId", async (req: Request, res: Response) => {
   }
 });
 
+// Update books by ID
 
-
+bookRoutes.patch("/:bookId", async (req: Request, res: Response) => {
+  try {
+    const book = await Book.findByIdAndUpdate(req.params.bookId, req.body, {
+      new: true,
+    });
+    res.json({
+      success: true,
+      message: "Book updated successfully",
+      data: book,
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      success: false,
+      message: "Failed Update book book",
+      error: error.message,
+    });
+  }
+});
