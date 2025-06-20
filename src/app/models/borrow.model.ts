@@ -16,6 +16,7 @@ const borrowSchema = new Schema<IBorrow>(
     dueDate: { type: Date, required: true },
   },
   {
+    versionKey: false,
     timestamps: true,
   }
 );
