@@ -5,7 +5,7 @@ import { bookRoutes } from "./app/controllers/book.controller";
 const app: Application = express();
 app.use(express.json());
 
-app.use("/", bookRoutes)
+app.use("/api/books", bookRoutes)
 
 
 app.get("/", (req: Request, res: Response) => {
