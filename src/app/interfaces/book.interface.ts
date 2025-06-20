@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export type Genre =
   | "FICTION"
   | "NON_FICTION"
@@ -16,6 +18,10 @@ export interface IBook {
   available?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface BookModel extends Model<IBook> {
+  updateAvailability(bookId: string): Promise<void>;
 }
 
 

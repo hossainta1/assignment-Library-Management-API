@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { IBook } from "../interfaces/book.interface";
+import { BookModel, IBook } from "../interfaces/book.interface";
 
-const bookSchema = new Schema<IBook>(
+const bookSchema = new Schema<IBook, BookModel>(
   {
     title: {
       type: String,
@@ -57,12 +57,12 @@ const bookSchema = new Schema<IBook>(
 
 // Using Middleware
 
-bookSchema.pre('save', function (next) {
+bookSchema.pre("save", function (next) {
   this.available = this.copies > 0;
   next();
 });
 
-bookSchema.post('save', function () {
+bookSchema.post("save", function () {
   console.log(`Book document with ID ${this._id} saved.`);
 });
 
@@ -74,5 +74,4 @@ bookSchema.statics.updateAvailability = async function (bookId: string) {
   }
 };
 
-
-export const Book = model<IBook>("Book", bookSchema);
+export const Book = model<IBook, BookModel>("Book", bookSchema);
