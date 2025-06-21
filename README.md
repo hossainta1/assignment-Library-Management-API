@@ -28,3 +28,6 @@ A RESTful Library Management System built with **Express**, **TypeScript**, and 
 git clone https://github.com/your-username/library-management-api.git
 cd library-management-api
 npm install
+
+
+Environment Variables
