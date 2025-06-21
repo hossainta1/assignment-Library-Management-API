@@ -1,6 +1,6 @@
 # 📚 Library Management API
 
-A RESTful Library Management System built with **Express**, **TypeScript**, and **MongoDB (Mongoose)**. This system supports book creation, retrieval, updates, deletion, borrowing functionality, and summary using aggregation.
+A RESTful Library Management System built with **Express**, **TypeScript**, and **MongoDB (Mongoose)**. This system supports book creation, retrieval, updates, deletion, borrowing functionality, and book borrow summary using aggregation.
 
 ---
 
