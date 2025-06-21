@@ -38,11 +38,13 @@ borrowRoutes.post("/", async (req: Request, res: Response) => {
       message: "Book borrowed successfully",
       data: savedRecord,
     });
-  } catch (error: any) {
+
+  } catch (error: unknown) {
+    const err = error as Error;
     res.status(400).json({
       success: false,
       message: "Failed to borrow book",
-      error: error.message,
+      error: err.message,
     });
   }
 });
@@ -85,11 +87,12 @@ borrowRoutes.get("/", async (req: Request, res: Response) => {
       message: "Borrowed books summary retrieved successfully",
       data: summary,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as Error;
     res.status(400).json({
       success: false,
       message: "Failed to retrieve summary",
-      error: error.message,
+      error: err.message,
     });
   }
 });
