@@ -4,7 +4,6 @@ import { Book } from "../models/book.model";
 
 export const borrowRoutes: Router = express.Router();
 
-
 // Borrow a Book
 
 borrowRoutes.post("/", async (req: Request, res: Response) => {
@@ -48,34 +47,33 @@ borrowRoutes.post("/", async (req: Request, res: Response) => {
   }
 });
 
+// Borrowed books summary
 
-// Book summary
-
-borrowRoutes.get("/", async(req: Request, res: Response) => {
-    try {
+borrowRoutes.get("/", async (req: Request, res: Response) => {
+  try {
     const summary = await Borrow.aggregate([
       {
         $group: {
-          _id: '$book',
-          totalQuantity: { $sum: '$quantity' },
+          _id: "$book",
+          totalQuantity: { $sum: "$quantity" },
         },
       },
       {
         $lookup: {
-          from: 'books',
-          localField: '_id',
-          foreignField: '_id',
-          as: 'bookDetails',
+          from: "books",
+          localField: "_id",
+          foreignField: "_id",
+          as: "bookDetails",
         },
       },
       {
-        $unwind: '$bookDetails',
+        $unwind: "$bookDetails",
       },
       {
         $project: {
           book: {
-            title: '$bookDetails.title',
-            isbn: '$bookDetails.isbn',
+            title: "$bookDetails.title",
+            isbn: "$bookDetails.isbn",
           },
           totalQuantity: 1,
         },
@@ -84,14 +82,14 @@ borrowRoutes.get("/", async(req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'Borrowed books summary retrieved successfully',
+      message: "Borrowed books summary retrieved successfully",
       data: summary,
     });
   } catch (error: any) {
     res.status(400).json({
       success: false,
-      message: 'Failed to retrieve summary',
+      message: "Failed to retrieve summary",
       error: error.message,
     });
   }
-})
+});
